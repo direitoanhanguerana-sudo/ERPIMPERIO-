@@ -3,382 +3,150 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ERP Império</title>
+  <title>ERP Império - Sistema de Gestão Completo</title>
   <style>
-    :root{
-      --bg:#0b1220;
-      --card:#111a2e;
-      --card2:#0f172a;
-      --line:rgba(255,255,255,.10);
-      --text:#e9eefc;
-      --muted:rgba(233,238,252,.70);
-      --accent:#22c55e;
-      --accent2:#38bdf8;
-      --warn:#f59e0b;
-      --danger:#ef4444;
-      --shadow: 0 18px 50px rgba(0,0,0,.35);
-      --radius: 16px;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
+    /* Estilos gerais */
+    body {
       font-family: Arial, sans-serif;
-      background: radial-gradient(900px 500px at 10% 10%, rgba(56,189,248,.18), transparent 55%),
-                  radial-gradient(900px 500px at 90% 0%, rgba(34,197,94,.14), transparent 55%),
-                  var(--bg);
-      color:var(--text);
+      background-color: #f4f7fa;
+      margin: 0;
+      padding: 0;
     }
-    .wrap{max-width:1100px; margin:0 auto; padding:22px;}
-    .top{
-      display:flex; gap:14px; align-items:center; justify-content:space-between;
-      border:1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      border-radius: var(--radius);
-      padding:14px 16px;
-      box-shadow: var(--shadow);
-      position: sticky; top: 10px; backdrop-filter: blur(10px);
+    .container {
+      width: 80%;
+      margin: 0 auto;
+      padding: 20px;
     }
-    .brand{display:flex; align-items:center; gap:12px;}
-    .logo{
-      width:42px; height:42px; border-radius:12px;
-      background: linear-gradient(135deg, rgba(34,197,94,.9), rgba(56,189,248,.9));
-      display:flex; align-items:center; justify-content:center; font-weight:700;
-      box-shadow: 0 10px 25px rgba(0,0,0,.25);
+    header {
+      background: #22c55e;
+      color: #fff;
+      padding: 15px;
+      text-align: center;
+      border-radius: 6px;
     }
-    .brand h1{font-size:18px; margin:0; line-height:1.1}
-    .brand p{margin:2px 0 0; font-size:12px; color:var(--muted)}
-    .pill{
-      display:inline-flex; gap:8px; align-items:center;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.04);
-      padding:8px 10px;
-      border-radius: 999px;
-      font-size:12px;
-      color:var(--muted);
+    /* Formulário de login */
+    .login-form {
+      width: 300px;
+      margin: 100px auto;
+      padding: 30px;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-radius: 6px;
     }
-    .dot{width:9px; height:9px; border-radius:50%; background: var(--accent);}
-    .grid{
-      display:grid;
-      grid-template-columns: 280px 1fr;
-      gap:16px;
-      margin-top:16px;
+    .login-form input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
     }
-    .side, .mainCard{
-      border:1px solid var(--line);
-      background: rgba(17,26,46,.72);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow:hidden;
+    .login-form button {
+      width: 100%;
+      padding: 10px;
+      background-color: #38bdf8;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
     }
-    .side .hd, .mainCard .hd{
-      padding:14px 16px;
-      border-bottom:1px solid var(--line);
-      background: rgba(255,255,255,.03);
+    .login-form button:hover {
+      background-color: #22c55e;
     }
-    .hd h2{margin:0; font-size:14px}
-    .menu{padding:10px;}
-    .item{
-      display:flex; align-items:center; gap:10px;
-      padding:10px 12px;
-      border-radius: 12px;
-      color:var(--text);
-      text-decoration:none;
-      border:1px solid transparent;
+    .error {
+      color: #ef4444;
+      margin: 10px 0;
     }
-    .item:hover{
-      background: rgba(255,255,255,.04);
-      border-color: var(--line);
+    /* Dashboard */
+    .dashboard {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 50px 0;
     }
-    .ico{
-      width:34px; height:34px; border-radius:12px;
-      display:flex; align-items:center; justify-content:center;
-      background: rgba(255,255,255,.06);
-      border: 1px solid var(--line);
-      font-weight:700;
+    .dashboard h2 {
+      margin-bottom: 30px;
     }
-    .item small{display:block; color:var(--muted); margin-top:2px;}
-    .content{padding:16px;}
-    .hero{
-      border:1px solid var(--line);
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(56,189,248,.12), rgba(34,197,94,.08));
-      padding:16px;
-      display:flex; align-items:flex-start; justify-content:space-between; gap:14px;
+    .button {
+      padding: 10px 20px;
+      background-color: #22c55e;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 10px;
     }
-    .hero h3{margin:0 0 6px; font-size:16px}
-    .hero p{margin:0; color:var(--muted); line-height:1.35}
-    .btns{display:flex; gap:10px; flex-wrap:wrap;}
-    .btn{
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.04);
-      color:var(--text);
-      padding:10px 12px;
-      border-radius: 12px;
-      text-decoration:none;
-      font-size:13px;
-      display:inline-flex; align-items:center; gap:8px;
-    }
-    .btn.primary{
-      background: rgba(34,197,94,.16);
-      border-color: rgba(34,197,94,.35);
-    }
-    .btn.info{
-      background: rgba(56,189,248,.16);
-      border-color: rgba(56,189,248,.35);
-    }
-    .cards{
-      margin-top:14px;
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:12px;
-    }
-    .kpi{
-      border:1px solid var(--line);
-      background: rgba(15,23,42,.78);
-      border-radius: var(--radius);
-      padding:14px;
-    }
-    .kpi .t{color:var(--muted); font-size:12px}
-    .kpi .v{font-size:18px; margin-top:6px; font-weight:700}
-    .kpi .tag{margin-top:10px; display:inline-block; font-size:12px; padding:6px 10px; border-radius:999px; border:1px solid var(--line); color:var(--muted)}
-    .two{
-      margin-top:12px;
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:12px;
-    }
-    .panel{
-      border:1px solid var(--line);
-      background: rgba(15,23,42,.78);
-      border-radius: var(--radius);
-      padding:14px;
-    }
-    .panel h4{margin:0 0 10px; font-size:14px}
-    .list{margin:0; padding:0; list-style:none; display:grid; gap:8px;}
-    .row{
-      display:flex; justify-content:space-between; align-items:center;
-      padding:10px 12px;
-      border-radius: 12px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-    }
-    .badge{font-size:12px; padding:6px 10px; border-radius:999px; border:1px solid var(--line); color:var(--muted)}
-    .b-ok{border-color: rgba(34,197,94,.35); background: rgba(34,197,94,.12); color:#bff7cf}
-    .b-warn{border-color: rgba(245,158,11,.35); background: rgba(245,158,11,.12); color:#ffe0b3}
-    .b-info{border-color: rgba(56,189,248,.35); background: rgba(56,189,248,.12); color:#c7efff}
-    .foot{margin-top:14px; color:var(--muted); font-size:12px; text-align:center;}
-    @media (max-width: 900px){
-      .grid{grid-template-columns: 1fr;}
-      .cards{grid-template-columns: 1fr;}
-      .two{grid-template-columns: 1fr;}
-      .top{position:relative; top:auto;}
+    .button:hover {
+      background-color: #38bdf8;
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="top">
-      <div class="brand">
-        <div class="logo">EI</div>
-        <div>
-          <h1>ERP Império</h1>
-          <p>Painel Comercial (vendas, clientes e financeiro)</p>
-        </div>
-      </div>
-      <div class="pill"><span class="dot"></span> Online • Publicado na Vercel</div>
-    </div>
 
-    <div class="grid">
-      <aside class="side">
-        <div class="hd"><h2>Menu</h2></div>
-        <div class="menu">
-          <a class="item" href="#dashboard">
-            <div class="ico">🏠</div>
-            <div>
-              <div>Dashboard</div>
-              <small>Resumo do dia</small>
-            </div>
-          </a>
-          <a class="item" href="#clientes">
-            <div class="ico">👤</div>
-            <div>
-              <div>Clientes</div>
-              <small>Cadastrar e consultar</small>
-            </div>
-          </a>
-          <a class="item" href="#produtos">
-            <div class="ico">📦</div>
-            <div>
-              <div>Produtos</div>
-              <small>KG • UN • CX</small>
-            </div>
-          </a>
-          <a class="item" href="#pedidos">
-            <div class="ico">🧾</div>
-            <div>
-              <div>Pedidos</div>
-              <small>Frete e descontos</small>
-            </div>
-          </a>
-          <a class="item" href="#financeiro">
-            <div class="ico">💰</div>
-            <div>
-              <div>Financeiro</div>
-              <small>Parcelas e recebimentos</small>
-            </div>
-          </a>
-        </div>
-      </aside>
-
-      <main class="mainCard" id="dashboard">
-        <div class="hd"><h2>Visão Geral</h2></div>
-        <div class="content">
-          <div class="hero">
-            <div>
-              <h3>Pronto para virar ERP completo ✅</h3>
-              <p>
-                Esta é a página inicial organizada. No próximo passo, vamos ligar o <b>login</b> e depois os módulos:
-                <b>Clientes</b>, <b>Produtos</b>, <b>Pedidos</b> e <b>Financeiro</b>.
-              </p>
-            </div>
-            <div class="btns">
-              <a class="btn primary" href="#pedidos">➕ Nova venda</a>
-              <a class="btn info" href="#clientes">👤 Novo cliente</a>
-            </div>
-          </div>
-
-          <div class="cards">
-            <div class="kpi">
-              <div class="t">Vendas hoje</div>
-              <div class="v">R$ 0,00</div>
-              <div class="tag">Em breve: dados reais</div>
-            </div>
-            <div class="kpi">
-              <div class="t">Pedidos pendentes</div>
-              <div class="v">0</div>
-              <div class="tag">Separação → Faturamento</div>
-            </div>
-            <div class="kpi">
-              <div class="t">A receber</div>
-              <div class="v">R$ 0,00</div>
-              <div class="tag">Pix • Boleto • Cartões</div>
-            </div>
-          </div>
-
-          <div class="two">
-            <div class="panel" id="pedidos">
-              <h4>Pedidos (exemplo)</h4>
-              <ul class="list">
-                <li class="row">
-                  <div>#0001 • Cliente Exemplo</div>
-                  <span class="badge b-warn">Separar</span>
-                </li>
-                <li class="row">
-                  <div>#0002 • Cliente Exemplo</div>
-                  <span class="badge b-info">Separado</span>
-                </li>
-                <li class="row">
-                  <div>#0003 • Cliente Exemplo</div>
-                  <span class="badge b-ok">Faturado</span>
-                </li>
-              </ul>
-            </div>
-
-            <div class="panel" id="financeiro">
-              <h4>Financeiro (exemplo)</h4>
-              <ul class="list">
-                <li class="row">
-                  <div>Parcela 1/3 • R$ 150,00</div>
-                  <span class="badge b-info">Pix</span>
-                </li>
-                <li class="row">
-                  <div>Parcela 2/3 • R$ 150,00</div>
-                  <span class="badge b-warn">Pendente</span>
-                </li>
-                <li class="row">
-                  <div>Parcela 3/3 • R$ 150,00</div>
-                  <span class="badge">A vencer</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="panel" id="clientes" style="margin-top:12px;">
-            <h4>Clientes (próximo passo)</h4>
-            <p class="muted" style="margin:0">
-              Vamos criar a tela de cadastro e consulta, e depois salvar no banco (Supabase).
-            </p>
-          </div>
-
-          <div class="panel" id="produtos" style="margin-top:12px;">
-            <h4>Produtos (próximo passo)</h4>
-            <p class="muted" style="margin:0">
-              Cadastro com unidades: <b>KG</b>, <b>UN</b> e <b>CX</b> (caixa).
-            </p>
-          </div>
-
-          <div class="foot">ERP Império • Versão inicial (visual) — Próximo: login e módulos reais</div>
-        </div>
-      </main>
-    </div>
-  </div>
-</body>
-</html>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-<script>
-  
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ERP Império - Login</title>
-  <style>
-    body { font-family: Arial, sans-serif; background: #f3f4f6; padding: 40px; text-align: center; }
-    .container { width: 320px; margin: 0 auto; padding: 20px; background: #fff; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); border-radius: 12px; }
-    input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 6px; }
-    button { width: 100%; padding: 10px; background-color: #22c55e; color: white; border: none; border-radius: 6px; font-size: 16px; }
-    button:hover { background-color: #38bdf8; }
-    h2 { margin-bottom: 20px; }
-    .error { color: #ef4444; margin: 10px 0; }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h2>ERP Império</h2>
-    <input type="email" id="email" placeholder="Digite seu e-mail" />
-    <input type="password" id="password" placeholder="Digite sua senha" />
+  <!-- Login -->
+  <div id="loginContainer" class="login-form">
+    <h2>ERP Império - Login</h2>
+    <input type="email" id="email" placeholder="Digite seu e-mail" required />
+    <input type="password" id="senha" placeholder="Digite sua senha" required />
     <button id="loginButton">Login</button>
     <div id="errorMessage" class="error"></div>
   </div>
 
+  <!-- Dashboard (aparece após login bem-sucedido) -->
+  <div id="dashboardContainer" class="dashboard" style="display: none;">
+    <header>ERP Império - Painel de Controle</header>
+    <h2>Bem-vindo ao ERP Império</h2>
+    <button class="button" id="logoutButton">Sair</button>
+    <h3>Gestão de Clientes, Produtos, Pedidos e Financeiro</h3>
+    <!-- Outros botões do ERP -->
+    <button class="button" id="clientsButton">Clientes</button>
+    <button class="button" id="productsButton">Produtos</button>
+    <button class="button" id="ordersButton">Pedidos</button>
+    <button class="button" id="financeButton">Financeiro</button>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script>
-    // Substitua com a URL e chave pública do Supabase
-    const supabaseUrl = 'https://tzlgpuazfhigtpfztdzp.supabase.co';  // Sua URL do Supabase
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR6bGdwdWF6ZmhpZ3RwZnp0ZHpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAxNzAwNTksImV4cCI6MjA4NTc0NjA1OX0.aDdc2NJIYeo-_ZIPU4KasOJZhba_vbc-qJ1bpuukmKY'; // Sua chave pública do Supabase
-
+    // URL e chave do Supabase (insira suas credenciais)
+    const supabaseUrl = 'https://tzlgpuazfhigtpfztdzp.supabase.co'; 
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR6bGdwdWF6ZmhpZ3RwZnp0ZHpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAxNzAwNTksImV4cCI6MjA4NTc0NjA1OX0.aDdc2NJIYeo-_ZIPU4KasOJZhba_vbc-qJ1bpuukmKY'; 
     const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
+    // Função de login
     document.getElementById('loginButton').addEventListener('click', async () => {
       const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
+      const senha = document.getElementById('senha').value;
 
-      // Realizando o login
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
-        password,
+        password: senha,
       });
 
       if (error) {
-        // Exibe a mensagem de erro se houver
         document.getElementById('errorMessage').textContent = error.message;
       } else {
-        // Redireciona para a página de dashboard se o login for bem-sucedido
-        window.location.href = '/dashboard.html'; 
+        localStorage.setItem('user', JSON.stringify(data.user));  // Salva o usuário no localStorage
+        document.getElementById('loginContainer').style.display = 'none';  // Esconde o login
+        document.getElementById('dashboardContainer').style.display = 'block';  // Exibe o dashboard
       }
     });
+
+    // Função de logout
+    document.getElementById('logoutButton').addEventListener('click', async () => {
+      await supabase.auth.signOut();
+      localStorage.removeItem('user');
+      document.getElementById('loginContainer').style.display = 'block';  // Exibe o login novamente
+      document.getElementById('dashboardContainer').style.display = 'none';  // Esconde o dashboard
+    });
+
+    // Verifica se o usuário já está logado ao carregar a página
+    window.onload = () => {
+      const user = localStorage.getItem('user');
+      if (user) {
+        document.getElementById('loginContainer').style.display = 'none';
+        document.getElementById('dashboardContainer').style.display = 'block';
+      }
+    };
   </script>
+
 </body>
 </html>
-
