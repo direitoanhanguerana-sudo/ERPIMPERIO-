@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ERP Império - Sistema de Gestão Completo</title>
+  <title>ERP Império - Login</title>
   <style>
     /* Estilos gerais */
     body {
@@ -116,17 +116,26 @@
       const email = document.getElementById('email').value;
       const senha = document.getElementById('senha').value;
 
+      // Verifica se os campos estão preenchidos
+      if (!email || !senha) {
+        document.getElementById('errorMessage').textContent = "Por favor, preencha o e-mail e a senha!";
+        return;
+      }
+
+      // Realizando o login
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password: senha,
       });
 
       if (error) {
+        // Exibe a mensagem de erro se houver
         document.getElementById('errorMessage').textContent = error.message;
       } else {
-        localStorage.setItem('user', JSON.stringify(data.user));  // Salva o usuário no localStorage
-        document.getElementById('loginContainer').style.display = 'none';  // Esconde o login
-        document.getElementById('dashboardContainer').style.display = 'block';  // Exibe o dashboard
+        // Salva o usuário no localStorage e redireciona para o dashboard
+        localStorage.setItem('user', JSON.stringify(data.user)); 
+        document.getElementById('loginContainer').style.display = 'none'; 
+        document.getElementById('dashboardContainer').style.display = 'block'; 
       }
     });
 
@@ -134,8 +143,8 @@
     document.getElementById('logoutButton').addEventListener('click', async () => {
       await supabase.auth.signOut();
       localStorage.removeItem('user');
-      document.getElementById('loginContainer').style.display = 'block';  // Exibe o login novamente
-      document.getElementById('dashboardContainer').style.display = 'none';  // Esconde o dashboard
+      document.getElementById('loginContainer').style.display = 'block'; 
+      document.getElementById('dashboardContainer').style.display = 'none'; 
     });
 
     // Verifica se o usuário já está logado ao carregar a página
