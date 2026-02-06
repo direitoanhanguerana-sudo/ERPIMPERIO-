@@ -122,19 +122,24 @@
       }
 
       // Realizando o login
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password: senha,
-      });
+      try {
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email,
+          password: senha,
+        });
 
-      if (error) {
-        // Exibe a mensagem de erro se houver
-        document.getElementById('errorMessage').textContent = error.message;
-      } else {
-        // Salva o usuário no localStorage e redireciona para o dashboard
-        localStorage.setItem('user', JSON.stringify(data.user)); 
-        document.getElementById('loginContainer').style.display = 'none'; 
-        document.getElementById('dashboardContainer').style.display = 'block'; 
+        if (error) {
+          // Exibe a mensagem de erro se houver
+          document.getElementById('errorMessage').textContent = error.message;
+        } else {
+          // Salva o usuário no localStorage e redireciona para o dashboard
+          localStorage.setItem('user', JSON.stringify(data.user)); 
+          document.getElementById('loginContainer').style.display = 'none'; 
+          document.getElementById('dashboardContainer').style.display = 'block'; 
+        }
+      } catch (error) {
+        document.getElementById('errorMessage').textContent = "Erro ao tentar realizar login. Tente novamente.";
+        console.error("Erro de autenticação:", error);
       }
     });
 
